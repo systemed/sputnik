@@ -11,7 +11,7 @@ Start the server on port 8000 with
 
     ruby sputnik.rb path_to_your.mml /path/to/directory/with/fonts_and_styles
 
-Go to http://localhost/
+Open sputnik.html in your web browser.
 
 ## Why
 
