@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title>Sputnik</title>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<style>
+		body { padding: 0; margin: 0; }
+		html, body, #map { height: 100%; }
+		.refreshContainer { background-color: white; border-radius: 4px; padding-bottom: 3px; }
+		.refreshButton {  font-size: large; font-weight: bold; cursor: pointer; }
+	</style>
+</head>
+<body>
+<div id='map'></div>
+<script>
+	L.Control.Refresh = L.Control.extend({
+		options: { position: 'topleft', title: 'Refresh', },
+
+		onAdd: function (map) {
+			this._map = map;
+			var container = L.DomUtil.create('div', 'leaflet-control-zoom leaflet-bar');
+			var newButton = L.DomUtil.create('a', 'refreshContainer', container);
+			var image = L.DomUtil.create('span', 'refreshButton', newButton);
+			image.innerHTML="&#8634;";
+			L.DomEvent.addListener(newButton, 'click', L.DomEvent.stop)
+			          .addListener(newButton, 'click', this._clicked,this);
+			return container;
+		},
+		_clicked: function(e) {
+			var script=document.createElement('script');
+			script.src="http://localhost:8000/refresh";
+			document.body.appendChild(script);
+		}
+	});
+
+	function refresh() { tiles.redraw(); }
+
+	function getParam(name) {
+		var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+		return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+	}
+
+	var map = L.map('map');
+	var tiles = L.tileLayer('http://localhost:8000/tile/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
+	map.setView([getParam('lat') || 52, getParam('lon') || 0], getParam('zoom') || 16);
+	map.addControl(new L.Control.Refresh());
+	map.on('moveend',function() {
+		var c=map.getCenter();
+		history.pushState(null,null,"sputnik.html?lat="+c.lat.toFixed(4)+"&lon="+c.lng.toFixed(4)+"&zoom="+map.getZoom());
+	});
+</script>
+</body>
+</html>
