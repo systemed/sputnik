@@ -24,6 +24,15 @@ Open sputnik.html in your web browser.
 * Mapnik
 * obvious stuff like Ruby, a webserver, etc. etc.
 
+### Installation
+
+First, install `ruby`, `autoconf`, `automake`, `rubygem-cairo-devel`, `boost-devel`, `mapnik-devel`, `npm`. Then:
+
+    npm install -g carto
+    gem install rake-compiler rake
+    gem install hoe rice chunky_png cairo
+    gem install ruby_mapnik
+
 ## Notes
 
 Your map location is bookmarkable, so you can return to the place you were testing yesterday.
