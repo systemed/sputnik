@@ -3,6 +3,8 @@
 
 Sputnik is a quick-and-dirty way of seeing your changes to a Mapnik stylesheet reflected in real time. It provides a simple tileserver, a full-window map view, and a 'refresh' button which reloads the map using your latest stylesheet.
 
+If you're looking for something less basic, you might want to use [Kosmtik](https://github.com/kosmtik/kosmtik) instead.
+
 ## How
 
 Copy sputnik.html to a web-browsable directory.
