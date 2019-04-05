@@ -3,6 +3,7 @@
 	<title>Sputnik</title>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+	<meta name="viewport" content="width=device-width">
 	<style>
 		body { padding: 0; margin: 0; }
 		html, body, #map { height: 100%; }
@@ -28,7 +29,7 @@
 		},
 		_clicked: function(e) {
 			var script=document.createElement('script');
-			script.src="http://localhost:8000/refresh";
+			script.src="/refresh";
 			document.body.appendChild(script);
 		}
 	});
@@ -41,7 +42,7 @@
 	}
 
 	var map = L.map('map');
-	var tiles = L.tileLayer('http://localhost:8000/tile/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
+	var tiles = L.tileLayer('/tile/{z}/{x}/{y}.png', { maxZoom: 18 }).addTo(map);
 	map.setView([getParam('lat') || 52, getParam('lon') || 0], getParam('zoom') || 16);
 	map.addControl(new L.Control.Refresh());
 	map.on('moveend',function() {
