@@ -24,6 +24,7 @@
 			$style.map.zoom_to(SimpleMapnik::Bounds.new(*bbox_sm))
 			fn = "/tmp/#{SecureRandom.uuid}.png"
 			$style.map.to_file(fn)
+			if $style.map.last_error then puts $style.map.last_error end
 			response.body = File.read(fn)
 			File.delete(fn)
 		end
